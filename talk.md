@@ -100,3 +100,21 @@ Or we could subscribe to anything tagged both #fights and #Batman
 ```bash
 $ ./tags_subscribe.py and \#Batman \#fights
 ```
+
+The code for the publisher is similar to before, but the subscriber is interesting:
+
+<open tags_subscriber.py>
+
+So we get the tags we want to subscribe to from the commandline, and
+then we create a connection to the exchange as before, and then here
+we switch on which operation we're doing. ANDing the tags allows us to
+use the `.contains` ReQL command. If we want to do OR, the ReQL query
+does a set intersection of our tags with the topic of the message. If
+it's not-empty, we're interested.
+
+Then we create the queue with the filter method and subscribe, just
+like before. I added some highlighting since it's hard to see when it
+scrolls by quickly.
+
+So, the final bit is: how does this work? Well the idea is that we
+just set up a changefeed on a table, and just keep writing to 

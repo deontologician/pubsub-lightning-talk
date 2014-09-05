@@ -33,9 +33,14 @@ def random_payload(*categories):
 
 def highlight_matching_tags(tags, results):
     '''Highlights in red matching tags'''
-    def f(result):
-        return t.red(result) if result in tags else result
-    return ' '.join(f(result) for result in results)
+    colors = [196, 
+    chunks = []
+    for i, result in enumerate(results):
+        if result in tags:
+            chunks.append(t.color(colors[hash(result) % len(colors)])(result))
+        else:
+            chunks.append(result)
+    return ' '.join(chunks)
 
 
 def point_in_region(point, region):
@@ -51,7 +56,7 @@ def regex_colorize(string, regex):
     '''Colorize a string based on which groups in a regex match it'''
     chunks = []
     index = 0
-    colors = (t.color(x) for x in [1,3,4,5,6,7,8])
+    colors = (t.color(x) for x in [160, 166, 172, 178, 184])
     for color, region in zip(colors, re.match(regex, string).regs[1:]):
         if not point_in_region(index, region):
             chunks.append(string[index:skip_before(region)])
