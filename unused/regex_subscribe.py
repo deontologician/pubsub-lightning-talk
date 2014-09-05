@@ -7,7 +7,7 @@ import repubsub
 
 if __name__ == '__main__':
     topic_regex = sys.argv[1]
-    exchange = repubsub.Exchange('comicbook_events', port=31156, host='newton')
+    exchange = repubsub.Exchange('comicbook_events', port=28015, host='localhost')
     reql_filter = lambda topic: topic.match(topic_regex)
     queue = exchange.queue(reql_filter)
 

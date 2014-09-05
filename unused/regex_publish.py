@@ -9,7 +9,7 @@ import repubsub
 
 if __name__ == '__main__':
     speed = get_speed(sys.argv)
-    exchange = repubsub.Exchange('comicbook_events', port=31156, host='newton')
+    exchange = repubsub.Exchange('comicbook_events', port=28015, host='localhost')
 
     while True:
         topic_key, payload = random_topic_key()

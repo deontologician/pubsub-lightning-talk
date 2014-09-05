@@ -33,7 +33,7 @@ def random_payload(*categories):
 
 def highlight_matching_tags(tags, results):
     '''Highlights in red matching tags'''
-    colors = [196, 
+    colors = [160, 166, 172, 178, 184]
     chunks = []
     for i, result in enumerate(results):
         if result in tags:
