@@ -7,11 +7,8 @@ from helpers import highlight_matching_tags, green
 
 if __name__ == '__main__':
 
-    # Parse the commandline into two groups of tags
-    tags1, tags2 = sys.argv[1].split(' and ')
-    tags1 = tags1.split(' or ')
-    tags2 = tags2.split(' or ')
-    all_tags = tags1 + tags2
+    # Parse the commandline args into tags
+    tags = sys.argv[1].split()
 
     # Connect to the exchange
     exchange = repubsub.Exchange(
@@ -22,14 +19,12 @@ if __name__ == '__main__':
 
     # Set up the ReQL filter based on our tags
     def reql_filter(topic):
-        contains_tags1 = topic.set_intersection(tags1) != []
-        contains_tags2 = topic.set_intersection(tags2) != []
-        return contains_tags1 & contains_tags2
+        return topic.contains(*tags)
 
     # Create the queue that will receive the messages
     queue = exchange.queue(reql_filter)
 
     # Subscribe to the queue and print the messages as they arrive
     for topic_tags, payload in queue.subscription():
-        print highlight_matching_tags(all_tags, topic_tags)
+        print highlight_matching_tags(tags, topic_tags)
         print '\t:', green(payload)

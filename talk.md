@@ -9,6 +9,8 @@ Ok, the idea is to decouple communication. An example might be following a
 twitter hashtag. Lots of people can post with a hashtag, and other people can
 follow the hashtag, and everybody doesn't have to be online at the same time.
 
+
+
 -- 1 minute
 
 The library I wrote is called repubsub. It's actually implemented in all 3 of

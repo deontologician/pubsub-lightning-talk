@@ -33,7 +33,7 @@ def random_payload(*categories):
 
 def highlight_matching_tags(tags, results):
     '''Highlights in red matching tags'''
-    colors = [160, 166, 172, 178, 184]
+    colors = [160, 98, 201, 165, 208]
     chunks = []
     for i, result in enumerate(results):
         if result in tags:
@@ -42,40 +42,7 @@ def highlight_matching_tags(tags, results):
             chunks.append(result)
     return ' '.join(chunks)
 
-
-def point_in_region(point, region):
-    return region[0] <= point < region[1]
-
-def skip_out(region):
-    return region[1]
-
-def skip_before(region):
-    return region[0]
-
-def regex_colorize(string, regex):
-    '''Colorize a string based on which groups in a regex match it'''
-    chunks = []
-    index = 0
-    colors = (t.color(x) for x in [160, 166, 172, 178, 184])
-    for color, region in zip(colors, re.match(regex, string).regs[1:]):
-        if not point_in_region(index, region):
-            chunks.append(string[index:skip_before(region)])
-        index = skip_out(region)
-        chunks.append(color(string[slice(*region)]))
-    if index != len(string) - 1:
-        chunks.append(string[index:len(string)])
-    return ''.join(chunks)
-
 green = t.green
-
-def get_speed(argv):
-    '''Returns the speed in seconds for sleeping'''
-    if len(argv) == 1:
-        return 0.1
-    elif argv[1] == 'fast':
-        return 0
-    else:
-        return 0.5 
 
 
 # These are used in the demos
