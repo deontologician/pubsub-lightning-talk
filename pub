@@ -6,7 +6,7 @@ import time
 import repubsub
 from helpers import random_tags, green
 
-speed = float(sys.argv[1]) if sys.argv[1:] else 0.1
+speed = 0.0 if sys.argv[1:] else 0.7
 
 # Create an exchange connection
 exchange = repubsub.Exchange('comicbook_tags', port=28015, host='localhost')
